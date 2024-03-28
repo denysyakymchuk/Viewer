@@ -31,7 +31,7 @@ def delete_path(db: Session, path_id):
 
 def create_path(db: Session, schem_path: schemas.Path):
     try:
-        db_path = models.Path(path=schem_path)
+        db_path = models.Path(path=schem_path.path_model, path_skybox_image=schem_path.url_skybox_image, path_env_image=schem_path.url_env_image)
         db.add(db_path)
         db.commit()
         db.refresh(db_path)

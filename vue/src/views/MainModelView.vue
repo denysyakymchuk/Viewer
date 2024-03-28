@@ -64,11 +64,17 @@ img {
   width: 100%;
 }
 
+MainView {
+  width: 100%;
+  height: 100%;
+}
+
 /* Animowana lewa panel */
 .openLeft {
   top: 0;
   left: -200px;
   position: fixed;
+  z-index: 110;
   animation: slideLeft 2s ease-in-out forwards;
 }
 
@@ -86,6 +92,7 @@ img {
   top: 0;
   right: -200px;
   position: fixed;
+  z-index: 110;
   animation: slideRight 2s ease-in-out forwards;
 }
 

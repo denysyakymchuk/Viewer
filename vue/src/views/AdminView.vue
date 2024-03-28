@@ -41,8 +41,22 @@
                           placeholder="Pick a 3D model file"
                           prepend-inner-icon="mdi-camera"
                           prepend-icon=""
-                          @change="(e) => {this.selectedFile = e.target.files}"
-                          label="Image"
+                          @change="(e) => {this.dataObject.selectedFileModel = e.target.files}"
+                          label="Model .glb"
+                      ></v-file-input>
+                      <v-file-input
+                          accept=".hdr,.jpg"
+                          prepend-inner-icon="mdi-camera"
+                          prepend-icon=""
+                          @change="(e) => {this.dataObject.selectedSkyBoxImage = e.target.files}"
+                          label="Skybox image .hdr .jpg"
+                      ></v-file-input>
+                      <v-file-input
+                          accept=".jpg"
+                          prepend-inner-icon="mdi-camera"
+                          prepend-icon=""
+                          @change="(e) => {this.dataObject.selectedEnvImage = e.target.files}"
+                          label="Env image .jpg"
                       ></v-file-input>
                     </v-col>
                     <v-col
@@ -89,7 +103,14 @@
             <tr>
               <td>{{ item.id }}</td>
               <td>{{ item.path }}</td>
-              <td><model-viewer :src="item.path"></model-viewer></td>
+              <td>
+                <model-viewer
+                    :src="item.path"
+                    :environment-image="item.path_skybox_image"
+                    :skybox-image="item.path_env_image"
+                >
+                </model-viewer>
+              </td>
               <td>
                 <v-btn color="red" @click="deleteModel(item.id)" text>
                   <v-icon icon="$delete"></v-icon>Delete
@@ -122,7 +143,11 @@ export default {
       ],
       loading: false,
       dialog: false,
-      selectedFile: '',
+      dataObject: {
+        selectedFileModel: null,
+        selectedSkyBoxImage: null,
+        selectedEnvImage: null,
+      }
     }
   },
   computed: {
@@ -137,15 +162,19 @@ export default {
     },
     async sendModel() {
       this.loading = true
-      await this.CREATE_MODELS(this.selectedFile)
+      await this.CREATE_MODELS(this.dataObject)
       await this.GET_MODELS()
       this.dialog = false
       this.loading = false
-      this.selectedFile = ''
+      this.dataObject = {
+        selectedFileModel: null,
+        selectedSkyBoxImage: null,
+        selectedEnvImage: null,
+      }
     },
     async logout() {
       await this.LOGOUT()
-      this.$router.push('/logout')
+      await this.$router.push('/logout')
     },
     ...mapActions(["GET_MODELS", "DELETE_MODELS", "CREATE_MODELS", "LOGOUT"]),
   },

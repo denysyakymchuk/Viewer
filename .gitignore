@@ -1,6 +1,8 @@
 backend/logs
 backend/venv
 backend/.idea
+backend/alembic.ini
+backend/alembic
 vue/node_modules
 .DS_Store
 

@@ -3,7 +3,11 @@
     <carousel :items-to-show="6">
 
       <slide v-for="slide in MODELS" :key="slide.path" class="slide">
-        <model-viewer class="ww" @click="setMainModel(slide.path)" :src="slide.path"></model-viewer>
+        <model-viewer class="ww"
+                      @click="setMainModel(slide.path, slide.path_skybox_image, slide.path_env_image);"
+                      :src="slide.path">
+
+        </model-viewer>
       </slide>
 
       <template #addons>
@@ -32,12 +36,14 @@ export default {
   },
   data() {
     return {
-      baseModel: 0,
+      baseModel: {
+
+      },
     };
   },
   methods: {
-    setMainModel(path) {
-      this.GET_MAIN_MODEL(path)
+    setMainModel(path, skyBoxImage, envImage) {
+      this.GET_MAIN_MODEL({path, skyBoxImage, envImage})
     },
     ...mapActions(["GET_MODELS", "GET_MAIN_MODEL"]),
   },
@@ -45,8 +51,15 @@ export default {
     ...mapGetters(["MODELS"]),
   },
   async mounted() {
+
     await this.GET_MODELS()
-    this.GET_MAIN_MODEL(this.MODELS[0].path)
+
+    const baseModel = {
+      path: this.MODELS[0].path,
+      skyBoxImage: this.MODELS[0].path_skybox_image,
+      envImage: this.MODELS[0].path_env_image
+    }
+    await this.GET_MAIN_MODEL(baseModel)
   }
 }
 </script>
@@ -59,25 +72,24 @@ export default {
 }
 
 model-viewer {
-  width: 100%; /* Занимает всю ширину слайда */
+  width: 100%;
   height: 100%;
-  /*background-image: url('../assets/bg.png');*/
 }
 
 .slide {
-  height: 150px; /* Задайте нужную высоту для слайдов */
+  height: 150px;
   width: 150px;
   margin: 1%;
 }
 
 .pos {
-  width: 100%; /* Занимает всю ширину экрана */
-  max-width: 1400px; /* Максимальная ширина карусели */
+  width: 100%;
+  max-width: 1400px;
   margin: auto;
   position: fixed;
-  bottom: 5%; /* Позиционирует карусель в самом низу экрана */
+  bottom: 5%;
   left: 50%;
-  transform: translateX(-50%); /* Центрирование по горизонтали */
+  transform: translateX(-50%);
   z-index: 1000;
 }
 </style>

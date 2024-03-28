@@ -1,7 +1,9 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
-    <div class="">
+    <div>
       <model-viewer  :src="this.MAIN_MODEL"
+                     :skybox-image="this.MAIN_SKY_BOX_IMAGE"
+                     :environment-image="this.MAIN_ENV_IMAGE"
                      :shadow-intensity="this.shadowIntensity"
                      :shadow-softness="this.shadowSoftness"
                      camera-controls
@@ -153,40 +155,33 @@ export default {
     ...mapActions(["GET_MAIN_MODEL"]),
   },
   computed: {
-    ...mapGetters(["MAIN_MODEL"]),
+    ...mapGetters(["MAIN_MODEL", "MAIN_SKY_BOX_IMAGE", "MAIN_ENV_IMAGE"]),
   },
 }
 </script>
 
 <style scoped>
-@media only screen and (max-width: 672px) {
-  model-viewer {
-    margin-top: 10%;
-    width: 100%; /* Full width of its container */
-    height: 100%; /* Full height of its container */
-    max-width: none; /* Overrides any max-width set previously */
-    aspect-ratio: unset; /* If aspect-ratio is set, unset it for this viewport size */
-    position: relative; /* Position set to relative */
-  }
-}
+
 .btn {
   margin-top: 1%;
   margin-right: 2%;
-  position: fixed;
+  position: absolute;
+  z-index: 1000;
   top: 0;
   right: 0;
 }
 model-viewer {
-  margin-bottom: 20%;
-  max-width: 1500px;
-  width: 100%;
-  height: 850px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   aspect-ratio: 16/9;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  /*background-image: url('../assets/bg.png');*/
-  /*background-size: cover;*/
+  border-radius: 0; /* убрать скругление углов, если не нужно */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* тень, если нужно */
+  z-index: 0; /* установить необходимый z-index */
 }
+
 .wd-all {
   width: 270px;
 }
@@ -197,10 +192,5 @@ model-viewer {
   flex: 1 1 auto;
   margin: 0;
 }
-@media only screen and (max-width: 672px) {
-  model-viewer {
-    width: 700px;
-    height: 350px;
-  }
-}
+
 </style>

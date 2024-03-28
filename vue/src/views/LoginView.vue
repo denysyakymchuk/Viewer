@@ -70,34 +70,34 @@ export default {
 
 <style scoped>
 .form {
-  background-color: #0e0e0e; /* Основной цвет фона */
-  border-radius: 4px; /* Если необходимы скругленные углы */
-  padding: 16px; /* Отступы внутри формы */
-  width: 400px; /* Удвоенная ширина */
-  max-width: 100%; /* Убедитесь, что форма не выходит за пределы экрана на устройствах с маленьким экраном */
-  box-sizing: border-box; /* Гарантирует, что padding и border включены в ширину */
+  background-color: #0e0e0e;
+  border-radius: 4px;
+  padding: 16px;
+  width: 400px;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .field {
-  background-color: #0e0e0e; /* Цвет фона для полей ввода */
-  border: none; /* Убрать стандартные границы */
-  color: #DDD; /* Цвет текста в полях ввода */
+  background-color: #0e0e0e;
+  border: none;
+  color: #DDD;
 }
 
 .field::placeholder {
-  color: #BBB; /* Цвет текста placeholder */
+  color: #BBB;
 }
 
 .field .v-label {
-  color: #BBB; /* Цвет метки поля ввода */
+  color: #BBB;
 }
 
 .submit-btn {
-  background-color: #666; /* Цвет кнопки */
-  color: #FFF; /* Цвет текста кнопки */
+  background-color: #666;
+  color: #FFF;
 }
 
 .submit-btn:hover {
-  background-color: #777; /* Цвет кнопки при наведении */
+  background-color: #777;
 }
 </style>

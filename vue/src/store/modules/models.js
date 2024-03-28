@@ -24,7 +24,16 @@ const actions = {
     },
     CREATE_MODELS: async (context, payload) => {
         let formData = new FormData();
-        formData.append('file', payload[0]);
+        formData.append('file', payload?.selectedFileModel[0]);
+
+        if (payload.selectedSkyBoxImage !== null) {
+            formData.append('skybox_image', payload.selectedSkyBoxImage[0]);
+        }
+
+        if (payload.selectedEnvImage !== null) {
+            formData.append('env_image', payload.selectedEnvImage[0]);
+        }
+
         const data = await api.post(`/upload-model`, formData);
         await context.commit("SET_MODELS", data.data.models);
     },
